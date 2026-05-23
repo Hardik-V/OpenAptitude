@@ -205,10 +205,10 @@ export default function PointsHackerLanding() {
       const card = cardRef.current; if(!card) return;
       const flipEl = cardFlipRef.current; if (!flipEl) return;
 
-      // FIX: No transformPerspective here — perspective lives on the CreditCard outer div.
+      // FIX: No transformPerspective here - perspective lives on the CreditCard outer div.
       // Double perspective contexts caused the blur.
       gsap.set(card,   { x:"26vw", y:"-2vh", scale:1.45, rotateX:5, rotateZ:-2, opacity:1, transformOrigin:"center center" });
-      // flipEl only does subtle tilts — never full 180° (that's handled by userFlipRef inside CreditCard)
+      // flipEl only does subtle tilts - never full 180° (that's handled by userFlipRef inside CreditCard)
       gsap.set(flipEl, { rotateY: 0 });
 
       gsap.set(".act-hero",      { opacity:1, y:0 });
@@ -226,7 +226,7 @@ export default function PointsHackerLanding() {
         scrollTrigger: { trigger:wrapRef.current, start:"top top", end:"bottom bottom", scrub:0.7 }
       });
 
-      // ACT 0 → ACT 1: subtle tilt on flipEl only — no full flips (user handles those via click)
+      // ACT 0 → ACT 1: subtle tilt on flipEl only - no full flips (user handles those via click)
       tl
         .to(flipEl, { rotateY: -10, duration: 0.07, ease: "none" }, 0.04)
         .to(flipEl, { rotateY: 0,   duration: 0.06, ease: "power2.inOut" }, 0.11)
@@ -235,7 +235,7 @@ export default function PointsHackerLanding() {
         .to(".bg-blob",   { x:"15%", opacity:0.55, duration:0.14 }, 0.14)
         .to(".act-loss",  { opacity:1, y:0, duration:0.08, ease:"power2.out" }, 0.22)
 
-      // ACT 2 — SWITCH
+      // ACT 2 - SWITCH
         .to(".act-loss",    { opacity:0, y:-52, duration:0.06 }, 0.29)
         .to(card,           { x:"-20vw", y:"1vh", scale:1.32, rotateX:5, rotateZ:-3, duration:0.16 }, 0.30)
         .to(".bg-blob",     { x:"-22%", opacity:0.6, duration:0.16 }, 0.30)
@@ -243,7 +243,7 @@ export default function PointsHackerLanding() {
         .to(".card-glow",   { opacity:0.9, duration:0.09 }, 0.37)
         .to(".act-switch",  { opacity:1, y:0, duration:0.08 }, 0.38)
 
-      // ACT 3 — PORTFOLIO
+      // ACT 3 - PORTFOLIO
         .to(".act-switch",    { opacity:0, y:-52, duration:0.06 }, 0.47)
         .to(".card-glow",     { opacity:0, duration:0.05 }, 0.47)
         .to(card,             { x:"20vw", y:"-14vh", scale:0.90, rotateX:-4, rotateZ:1.5, duration:0.14 }, 0.47)
@@ -252,16 +252,16 @@ export default function PointsHackerLanding() {
         .to(".act-portfolio", { opacity:1, y:0, duration:0.07 }, 0.5)
         .to(".portfolio-card-item", { opacity:1, y:0, stagger:0.028, duration:0.07 }, 0.45)
 
-      // ACT 4 — PLAYBOOK
+      // ACT 4 - PLAYBOOK
         .to(".act-portfolio",       { opacity:0, y:-52, duration:0.06 }, 0.64)
         .to(".portfolio-card-item", { opacity:0, y:22,  duration:0.05 }, 0.64)
-        .to(card,                   { x:"-20vw", y:"4vh", scale:1.0, rotateX:2, rotateZ:-2, duration:0.10 }, 0.64)
+        .to(card,                   { x:"-20vw", y:"4vh", scale:1.75, rotateX:2, rotateZ:-2, duration:0.10 }, 0.64)
         .to(flipEl,                 { rotateY: -6, duration:0.10, ease:"power2.inOut" }, 0.64)
         .to(".bg-blob",             { x:"-16%", y:"16%", opacity:0.44, duration:0.10 }, 0.64)
         .to(".act-playbook",        { opacity:1, y:0, duration:0.07 }, 0.70)
         .to(".playbook-step",       { opacity:1, x:0, stagger:0.016, duration:0.055 }, 0.71)
 
-      // ACT 5 — CTA: reset inner tilt to 0° for clean centred presentation
+      // ACT 5 - CTA: reset inner tilt to 0° for clean centred presentation
         .to(".act-playbook",  { opacity:0, y:-52, duration:0.06 }, 0.82)
         .to(".playbook-step", { opacity:0, x:44,  duration:0.05 }, 0.82)
         .to(card,             { x:0, y:"-22vh", scale:1.35, rotateX:0, rotateZ:0, duration:0.17 }, 0.82)
@@ -380,14 +380,14 @@ export default function PointsHackerLanding() {
               </div>
             </div>
             <p style={{ fontSize:"15px", color:"rgba(255,255,255,0.4)", lineHeight:1.7, marginBottom:"20px" }}>
-              The Westpac Altitude Black is offering <strong style={{ color:"rgba(255,255,255,0.7)" }}>150,000 bonus points</strong> worth $750 — just for switching and hitting your normal spend.
+              The Westpac Altitude Black is offering <strong style={{ color:"rgba(255,255,255,0.7)" }}>150,000 bonus points</strong> worth $750 - just for switching and hitting your normal spend.
             </p>
             <div style={{ background:"rgba(249,115,22,0.07)", border:"1px solid rgba(249,115,22,0.22)", borderRadius:"14px", padding:"16px", display:"flex", alignItems:"center", gap:"12px" }}>
               <div style={{ width:"32px", height:"32px", background:"rgba(249,115,22,0.14)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#F97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </div>
               <div>
-                <div style={{ fontSize:"13px", fontWeight:600, color:"#fff" }}>Points Hacker matched this card</div>
+                <div style={{ fontSize:"13px", fontWeight:600, color:"#fff" }}>We matched this card</div>
                 <div style={{ fontSize:"11px", color:"rgba(255,255,255,0.34)", marginTop:"2px" }}>Based on $3,200/month household spend</div>
               </div>
             </div>
@@ -518,7 +518,7 @@ export default function PointsHackerLanding() {
             </div>
           </div>
 
-          {/* ACT 0 — HERO */}
+          {/* ACT 0 - HERO */}
           <div className="act-hero" style={{ position:"absolute", inset:0, zIndex:5, display:"flex", alignItems:"center", padding:"0 9vw", pointerEvents:"none" }}>
             <div style={{ maxWidth:"480px" }}>
               <h1 style={{ fontFamily:"var(--font-bricolage)", fontSize:"clamp(54px, 6.8vw, 96px)", fontWeight:800, lineHeight:0.92, letterSpacing:"-0.04em", color:"#fff", marginBottom:"28px" }}>
@@ -543,7 +543,7 @@ export default function PointsHackerLanding() {
             </div>
           </div>
 
-          {/* ACT 1 — LOSS */}
+          {/* ACT 1 - LOSS */}
           <div className="act-loss" style={{ position:"absolute", inset:0, zIndex:5, display:"flex", alignItems:"center", padding:"0 9vw", pointerEvents:"none" }}>
             <div style={{ maxWidth:"460px" }}>
               <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", marginBottom:"18px" }}><div style={{ width:"20px", height:"1px", background:YELLOW, opacity:0.7 }} /><p style={{ fontSize:"10px", fontWeight:700, color:YELLOW, letterSpacing:"0.16em", textTransform:"uppercase", opacity:0.8 }}>The problem</p></div>
@@ -561,7 +561,7 @@ export default function PointsHackerLanding() {
             </div>
           </div>
 
-          {/* ACT 2 — SWITCH */}
+          {/* ACT 2 - SWITCH */}
           <div className="act-switch" style={{ position:"absolute", inset:0, zIndex:5, display:"flex", alignItems:"center", justifyContent:"flex-end", padding:"0 9vw", pointerEvents:"none" }}>
             <div style={{ maxWidth:"400px" }}>
               <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", marginBottom:"18px" }}><div style={{ width:"20px", height:"1px", background:YELLOW, opacity:0.7 }} /><p style={{ fontSize:"10px", fontWeight:700, color:YELLOW, letterSpacing:"0.16em", textTransform:"uppercase", opacity:0.8 }}>The solution</p></div>
@@ -569,21 +569,21 @@ export default function PointsHackerLanding() {
                 There's a<br /><span style={{ color:CARDS[2].accent }}>better card</span><br />waiting.
               </h2>
               <p style={{ fontSize:"16px", color:"rgba(255,255,255,0.4)", lineHeight:1.76, marginBottom:"28px" }}>
-                The Westpac Altitude Black is offering <strong style={{ color:"rgba(255,255,255,0.7)" }}>150,000 bonus points</strong> worth $750 — just for switching and hitting your normal spend.
+                The Westpac Altitude Black is offering <strong style={{ color:"rgba(255,255,255,0.7)" }}>150,000 bonus points</strong> worth $750 - just for switching and hitting your normal spend.
               </p>
               <div style={{ background:"rgba(249,115,22,0.07)", border:"1px solid rgba(249,115,22,0.22)", borderRadius:"14px", padding:"16px 20px", display:"flex", alignItems:"center", gap:"14px" }}>
                 <div style={{ width:"36px", height:"36px", background:"rgba(249,115,22,0.14)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#F97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </div>
                 <div>
-                  <div style={{ fontSize:"13px", fontWeight:600, color:"#fff" }}>Points Hacker matched this card</div>
+                  <div style={{ fontSize:"13px", fontWeight:600, color:"#fff" }}>We matched this card</div>
                   <div style={{ fontSize:"12px", color:"rgba(255,255,255,0.34)", marginTop:"2px" }}>Based on $3,200/month household spend</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* ACT 3 — PORTFOLIO */}
+          {/* ACT 3 - PORTFOLIO */}
           <div className="act-portfolio" style={{ position:"absolute", inset:0, zIndex:5, display:"flex", flexDirection:"column", justifyContent:"center", padding:"0 9vw", paddingTop:"60px", pointerEvents:"none" }}>
             <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", marginBottom:"18px" }}><div style={{ width:"20px", height:"1px", background:YELLOW, opacity:0.7 }} /><p style={{ fontSize:"10px", fontWeight:700, color:YELLOW, letterSpacing:"0.16em", textTransform:"uppercase", opacity:0.8 }}>The full database</p></div>
             <h2 style={{ fontFamily:"var(--font-bricolage)", fontSize:"clamp(34px, 4vw, 54px)", fontWeight:800, letterSpacing:"-0.034em", lineHeight:1.0, color:"#fff", marginBottom:"36px", maxWidth:"520px" }}>
@@ -604,7 +604,7 @@ export default function PointsHackerLanding() {
             </div>
           </div>
 
-          {/* ACT 4 — PLAYBOOK */}
+          {/* ACT 4 - PLAYBOOK */}
           <div className="act-playbook" style={{ position:"absolute", inset:0, zIndex:5, display:"flex", alignItems:"center", justifyContent:"flex-end", padding:"0 9vw", pointerEvents:"none" }}>
             <div style={{ maxWidth:"420px" }}>
               <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", marginBottom:"18px" }}><div style={{ width:"20px", height:"1px", background:YELLOW, opacity:0.7 }} /><p style={{ fontSize:"10px", fontWeight:700, color:YELLOW, letterSpacing:"0.16em", textTransform:"uppercase", opacity:0.8 }}>The playbook</p></div>
@@ -628,7 +628,7 @@ export default function PointsHackerLanding() {
             </div>
           </div>
 
-          {/* ACT 5 — CTA */}
+          {/* ACT 5 - CTA */}
           <div className="act-cta" style={{ position:"absolute", inset:0, zIndex:5, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"flex-end", paddingBottom:"7vh", textAlign:"center", pointerEvents:"none" }}>
             <div style={{ position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-bricolage)", fontSize:"clamp(60px, 13vw, 175px)", fontWeight:800, color:"rgba(255,255,255,0.015)", letterSpacing:"-0.06em", whiteSpace:"nowrap", pointerEvents:"none", userSelect:"none" }}>SWITCH SMARTER</div>
             <div style={{ position:"relative", zIndex:2, pointerEvents:"all" }}>
@@ -664,7 +664,6 @@ export default function PointsHackerLanding() {
       <footer style={{ borderTop:"1px solid rgba(255,255,255,0.05)", padding:"40px 56px", display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:"20px", background:NAVY }}>
         <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
           <img src="https://openloans.com.au/wp-content/uploads/2023/07/open-1-1-e1689958528538.png" alt="Open" style={{ height:"20px", filter:"brightness(0) invert(1)", opacity:0.3 }} />
-          <span style={{ fontFamily:"var(--font-bricolage)", fontWeight:700, fontSize:"13px", color:"rgba(255,255,255,0.26)" }}>Points Hacker</span>
         </div>
         <p style={{ fontSize:"12px", color:"rgba(255,255,255,0.13)", maxWidth:"380px", textAlign:"center", lineHeight:1.7 }}>
           General information only. Not financial advice. Card offers subject to change. Always read the PDS.
