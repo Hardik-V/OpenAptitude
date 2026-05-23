@@ -4,10 +4,6 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
-# AI-Native Engineering Log
-
-This document outlines the AI-assisted workflows utilized during the development of the **Open | Points Hacker Assistant**. As per the assessment brief, this project was built using an AI-native approach to accelerate ideation, handle complex mathematical abstractions, and elevate product design.
-
 ## 1. GPGPU Shader Extraction & Reverse Engineering
 To achieve an ultra-premium, zero-latency visual experience, I wanted a background canvas that rivaled top-tier tech landing pages. 
 * **The Process:** I used AI to assist in reverse-engineering minified, 74k-line production WebGL bundles from a reference site. 
