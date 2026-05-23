@@ -1,20 +1,15 @@
-// ─── Mock Open Banking Transactions ──────────────────────────────────────────
-// Simulates what you'd receive from a CDR (Consumer Data Right) bank feed.
-// Used to auto-populate the spend profile after "linking" a bank.
-
 import type { SpendProfile } from "./cards";
 
 export interface MockTransaction {
   id: string;
-  date: string;          // ISO date string
+  date: string;
   description: string;
-  amount: number;        // positive = debit (spend)
+  amount: number;
   category: keyof SpendProfile;
   merchant?: string;
 }
 
-// ─── Profile presets ──────────────────────────────────────────────────────────
-
+// ─── These are the ONLY valid profile keys ────────────────────────────────────
 export type BankProfileType = "young_professional" | "family" | "frequent_flyer" | "foodie";
 
 const PROFILES: Record<BankProfileType, { label: string; description: string; spend: SpendProfile }> = {
@@ -40,7 +35,8 @@ const PROFILES: Record<BankProfileType, { label: string; description: string; sp
   },
 };
 
-// ─── Transaction generation ────────────────────────────────────────────────────
+// Fallback for any stale persisted profileType values that no longer exist
+const FALLBACK_PROFILE: BankProfileType = "young_professional";
 
 function isoDate(daysAgo: number): string {
   const d = new Date();
@@ -57,7 +53,9 @@ const MERCHANTS: Record<keyof SpendProfile, string[]> = {
 };
 
 export function generateMockTransactions(profile: BankProfileType, months = 3): MockTransaction[] {
-  const { spend } = PROFILES[profile];
+  // Defensive: fall back if a stale/invalid profileType is passed
+  const safeProfile = PROFILES[profile] ? profile : FALLBACK_PROFILE;
+  const { spend } = PROFILES[safeProfile];
   const transactions: MockTransaction[] = [];
   let txId = 1;
 
@@ -87,18 +85,14 @@ export function generateMockTransactions(profile: BankProfileType, months = 3): 
   return transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-/**
- * Aggregate transactions into a monthly spend profile.
- */
 export function aggregateToSpendProfile(
   transactions: MockTransaction[],
-  months = 3
+  months = 3,
 ): SpendProfile {
   const totals: SpendProfile = { groceries: 0, dining: 0, travel: 0, bills: 0, other: 0 };
   for (const tx of transactions) {
     totals[tx.category] += tx.amount;
   }
-  // Normalise to monthly average
   return Object.fromEntries(
     Object.entries(totals).map(([k, v]) => [k, Math.round(v / months)])
   ) as SpendProfile;

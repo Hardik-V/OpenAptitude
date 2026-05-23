@@ -13,19 +13,27 @@ export interface CreditCard {
   bank: string;
   name: string;
   network: Network;
-  bonus: number;         // raw points
-  bonusValue: number;    // AUD equivalent
+  bonus: number;            // raw points
+  bonusValue: number;       // AUD equivalent of bonus
   annualFee: number;
   minSpend: number;
-  spendPeriod: number;   // months to hit minSpend
+  spendPeriod: number;      // months to hit minSpend
   earnRate: EarnRate;
   bestFor: SpendCategory[];
   tag: string;
   accent: string;
   bg: [string, string];
   transferPartners: string[];
-  approxAprRange: [number, number]; // % e.g. [19.99, 23.99]
+  approxAprRange: [number, number];
   rewardProgram: string;
+
+  // ── Sequence planning fields ───────────────────────────────────────────────
+  bankFamily: string;        // cards in same family can't be held simultaneously
+                             // e.g. "anz", "westpac", "amex", "nab", "citi", "commbank"
+  cooldownMonths: number;    // months after closing before bonus is earnable again
+  bonusOnceInLifetime: boolean; // true = Amex lifetime language — never eligible again
+  canHoldWithBank: string[]; // bankFamilies this card CAN coexist with simultaneously
+                             // (empty = any bank is fine, just not same family)
 }
 
 // ─── Redemption Goals ─────────────────────────────────────────────────────────
@@ -127,6 +135,10 @@ export const ALL_CARDS: CreditCard[] = [
     transferPartners: ["Qantas", "Velocity", "Singapore Airlines"],
     approxAprRange: [19.99, 21.99],
     rewardProgram: "Altitude Rewards",
+    bankFamily: "westpac",
+    cooldownMonths: 12,
+    bonusOnceInLifetime: false,
+    canHoldWithBank: [],
   },
   {
     id: "anz-ff-black",
@@ -146,6 +158,10 @@ export const ALL_CARDS: CreditCard[] = [
     transferPartners: ["Qantas"],
     approxAprRange: [20.24, 20.24],
     rewardProgram: "Qantas Frequent Flyer",
+    bankFamily: "anz",
+    cooldownMonths: 12,
+    bonusOnceInLifetime: false,
+    canHoldWithBank: [],
   },
   {
     id: "nab-qantas",
@@ -165,6 +181,10 @@ export const ALL_CARDS: CreditCard[] = [
     transferPartners: ["Qantas"],
     approxAprRange: [19.99, 19.99],
     rewardProgram: "Qantas Frequent Flyer",
+    bankFamily: "nab",
+    cooldownMonths: 18,
+    bonusOnceInLifetime: false,
+    canHoldWithBank: [],
   },
   {
     id: "amex-platinum",
@@ -184,6 +204,13 @@ export const ALL_CARDS: CreditCard[] = [
     transferPartners: ["Qantas", "Velocity", "Singapore KrisFlyer", "Marriott"],
     approxAprRange: [23.99, 23.99],
     rewardProgram: "Membership Rewards",
+    // Amex: can hold Amex cards simultaneously but bonus is once-in-lifetime
+    // for some products. Platinum Edge is NOT once-in-lifetime (it was removed
+    // from that list in 2023) — but we flag it conservatively.
+    bankFamily: "amex",
+    cooldownMonths: 18,
+    bonusOnceInLifetime: false,
+    canHoldWithBank: [],
   },
   {
     id: "citi-premier",
@@ -203,6 +230,10 @@ export const ALL_CARDS: CreditCard[] = [
     transferPartners: ["Velocity", "Singapore KrisFlyer", "Cathay Pacific"],
     approxAprRange: [21.49, 21.49],
     rewardProgram: "Citi Rewards",
+    bankFamily: "citi",
+    cooldownMonths: 12,
+    bonusOnceInLifetime: false,
+    canHoldWithBank: [],
   },
   {
     id: "commbank-awards",
@@ -222,13 +253,19 @@ export const ALL_CARDS: CreditCard[] = [
     transferPartners: ["Qantas", "Velocity"],
     approxAprRange: [20.74, 20.74],
     rewardProgram: "CommBank Awards",
+    bankFamily: "commbank",
+    cooldownMonths: 12,
+    bonusOnceInLifetime: false,
+    canHoldWithBank: [],
   },
 ];
 
-export const SPEND_CATEGORIES: { key: SpendCategory; label: string; color: string; max: number; icon: string }[] = [
+export const SPEND_CATEGORIES: {
+  key: SpendCategory; label: string; color: string; max: number; icon: string;
+}[] = [
   { key: "groceries", label: "Groceries",  color: "#4ade80", max: 5000, icon: "🛒" },
   { key: "dining",    label: "Dining Out", color: "#f97316", max: 3000, icon: "🍽" },
-  { key: "travel",    label: "Travel",     color: "#60a5fa", max: 5000, icon: "✈" },
+  { key: "travel",    label: "Travel",     color: "#60a5fa", max: 5000, icon: "✈"  },
   { key: "bills",     label: "Bills",      color: "#a78bfa", max: 4000, icon: "⚡" },
   { key: "other",     label: "Other",      color: "#f472b6", max: 3000, icon: "📦" },
 ];
